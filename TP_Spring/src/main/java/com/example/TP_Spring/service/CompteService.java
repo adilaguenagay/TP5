@@ -26,7 +26,7 @@ public class CompteService {
         return compteDao.deleteByRib(rib);
     }
 
-    public List<Compte> findByRibLikeAndSolde(String rib, double solde) {
+    public List<Compte> findByRibLikeAndSoldeGreaterThan(String rib, double solde) {
         return compteDao.findByRibLikeAndSoldeGreaterThan(rib, solde);
     }
 
@@ -88,11 +88,6 @@ public class CompteService {
         }
 
     }
-
-    public <S extends Compte> Optional<S> findOne(Example<S> example) {
-        return compteDao.findOne(example);
-    }
-
 
         /*
     public int transferer(String ribSource, String ribDestination, double montant) {

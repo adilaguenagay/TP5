@@ -13,12 +13,20 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/compte/")
+@RequestMapping("/comptes/")
 public class CompteWs {
     @Autowired
     public CompteService compteService;
 
+    @GetMapping("")
+    public List<Compte> findAll() {
+        return compteService.findAll();
+    }
 
+    @PostMapping("")
+    public int save(@RequestBody Compte compte) {
+        return compteService.save(compte);
+    }
     @GetMapping("rib/{rib}")
     public Compte findByRib(@PathVariable String rib) {
         return compteService.findByRib(rib);
@@ -30,19 +38,10 @@ public class CompteWs {
     }
 
     @GetMapping("rib/{rib}/solde/{solde}")
-    public List<Compte> findByRibLikeAndSolde(@PathVariable String rib, @PathVariable double solde) {
-        return compteService.findByRibLikeAndSolde(rib, solde);
+    public List<Compte> findByRibLikeAndSoldeGreaterThan(@PathVariable String rib, @PathVariable double solde) {
+        return compteService.findByRibLikeAndSoldeGreaterThan(rib, solde);
     }
 
-    @GetMapping("")
-    public List<Compte> findAll() {
-        return compteService.findAll();
-    }
-
-    @PostMapping("")
-    public int save(@RequestBody Compte compte) {
-        return compteService.save(compte);
-    }
 
     @PutMapping("crediter/rib/{rib}/montant/{montant}")
     public int crediter(@PathVariable String rib, @PathVariable double montant) {
@@ -54,8 +53,8 @@ public class CompteWs {
         return compteService.debiter(rib, montant);
     }
 
-    @PutMapping("transferer/source/rib/{ribSource}/destination/rib/{ribDestination}/montant/{montant}")
-    public int transferer(String ribSource, String ribDestination, double montant) {
+    @PutMapping("/transferer/compte-source/rib/{ribSource}/compte-destination/rib/{ribDestination}/montant/{montant}")
+    public int transferer(@PathVariable String ribSource,@PathVariable String ribDestination,@PathVariable double montant) {
         return compteService.transferer(ribSource, ribDestination, montant);
     }
 

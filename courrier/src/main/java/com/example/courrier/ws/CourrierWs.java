@@ -9,27 +9,27 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/courrier")
+@RequestMapping("/courrier/")
 @AllArgsConstructor
 public class CourrierWs {
     private final CourrierService courrierService;
 
-    @PostMapping("/create")
+    @PostMapping("")
     public Courrier create(@RequestBody Courrier courrier) {
         return courrierService.creer(courrier);
     }
 
-    @GetMapping("/read")
+    @GetMapping("")
     public List<Courrier> read() {
         return courrierService.lire();
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/update/id/{id}")
     public Courrier update(@PathVariable Long id, @RequestBody Courrier courrier) {
         return courrierService.modifier(id, courrier);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("id/{id}")
     public String delete(@PathVariable Long id) {
         return courrierService.supprimer(id);
     }
